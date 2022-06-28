@@ -1,4 +1,4 @@
-package com.udacity.asteroidradar.detail
+package dev.killebrew.asteroidradar.detail
 
 
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.udacity.asteroidradar.R
-import com.udacity.asteroidradar.databinding.FragmentDetailBinding
+import dev.killebrew.asteroidradar.R
+import dev.killebrew.asteroidradar.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

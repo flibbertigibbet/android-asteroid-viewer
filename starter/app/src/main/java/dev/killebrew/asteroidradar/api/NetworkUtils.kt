@@ -1,7 +1,7 @@
-package com.udacity.asteroidradar.api
+package dev.killebrew.asteroidradar.api
 
-import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.Constants
+import dev.killebrew.asteroidradar.Asteroid
+import dev.killebrew.asteroidradar.Constants
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
