@@ -1,6 +1,35 @@
 package dev.killebrew.asteroidradar.main
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import dev.killebrew.asteroidradar.database.getDatabase
+import dev.killebrew.asteroidradar.repository.AsteroidRepository
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+// based on:
+// https://github.com/udacity/andfun-kotlin-dev-bytes/blob/master/app/src/main/java/com/example/android/devbyteviewer/viewmodels/DevByteViewModel.kt
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+    private val database = getDatabase(application)
+    private val asteroidRepository = AsteroidRepository(database)
+
+    init {
+        viewModelScope.launch {
+            asteroidRepository.refreshAsteroids()
+        }
+    }
+
+    val asteroids = asteroidRepository.asteroids
+
+    class Factory(val app: Application) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return MainViewModel(app) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewmodel")
+        }
+    }
 }
