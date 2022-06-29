@@ -1,7 +1,7 @@
 package dev.killebrew.asteroidradar.network
 
 import com.squareup.moshi.JsonClass
-import dev.killebrew.asteroidradar.Asteroid
+import dev.killebrew.asteroidradar.models.Asteroid
 import dev.killebrew.asteroidradar.database.DatabaseAsteroid
 
 @JsonClass(generateAdapter = true)

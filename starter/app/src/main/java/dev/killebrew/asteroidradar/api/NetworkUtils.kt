@@ -1,7 +1,7 @@
 package dev.killebrew.asteroidradar.api
 
-import dev.killebrew.asteroidradar.Asteroid
-import dev.killebrew.asteroidradar.Constants
+import dev.killebrew.asteroidradar.models.Asteroid
+import dev.killebrew.asteroidradar.utils.Constants
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*

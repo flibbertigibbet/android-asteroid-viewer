@@ -1,4 +1,4 @@
-package dev.killebrew.asteroidradar
+package dev.killebrew.asteroidradar.utils
 
 object Constants {
     const val API_QUERY_DATE_FORMAT = "YYYY-MM-dd"

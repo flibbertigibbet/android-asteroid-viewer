@@ -2,7 +2,7 @@ package dev.killebrew.asteroidradar.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import dev.killebrew.asteroidradar.Asteroid
+import dev.killebrew.asteroidradar.models.Asteroid
 import dev.killebrew.asteroidradar.database.AsteroidDatabase
 import dev.killebrew.asteroidradar.database.asDomainModel
 import dev.killebrew.asteroidradar.network.Network

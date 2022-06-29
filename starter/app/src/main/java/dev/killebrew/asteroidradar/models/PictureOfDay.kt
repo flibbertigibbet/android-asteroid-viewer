@@ -1,4 +1,4 @@
-package dev.killebrew.asteroidradar
+package dev.killebrew.asteroidradar.models
 
 import com.squareup.moshi.Json
 

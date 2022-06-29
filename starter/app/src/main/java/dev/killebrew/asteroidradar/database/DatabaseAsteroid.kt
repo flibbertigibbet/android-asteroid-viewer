@@ -2,7 +2,7 @@ package dev.killebrew.asteroidradar.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import dev.killebrew.asteroidradar.Asteroid
+import dev.killebrew.asteroidradar.models.Asteroid
 
 @Entity(tableName = "asteroids")
 data class DatabaseAsteroid constructor(
