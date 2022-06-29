@@ -131,7 +131,7 @@ You will need an API Key which is provided for you in that same link, just fill 
 
 ### API key setup
 
-Copy the file `starter/app/src/main/res/values/api_keys_example.xml` to `starter/app/src/main/res/values/api_keys.xml` and put your API key acquired above in the value.
+Copy the file `examples/api_keys.xml` to `starter/app/src/main/res/values/api_keys.xml` and put your API key acquired above in the value.
 
 
 ## License
