@@ -1,26 +1,18 @@
 package dev.killebrew.asteroidradar.network
 
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import dev.killebrew.asteroidradar.api.AsteroidList
 import dev.killebrew.asteroidradar.models.Asteroid
 import dev.killebrew.asteroidradar.database.DatabaseAsteroid
 
 @JsonClass(generateAdapter = true)
-data class NetworkAsteroidContainer(val asteroids: List<NetworkAsteroid>)
-
-@JsonClass(generateAdapter = true)
-data class NetworkAsteroid(
-    val id: Long,
-    val codename: String,
-    val closeApproachDate: String,
-    val absoluteMagnitude: Double,
-    val estimatedDiameter: Double,
-    val relativeVelocity: Double,
-    val distanceFromEarth: Double,
-    val isPotentiallyHazardous: Boolean
-)
+data class NetworkAsteroidContainer(@AsteroidList @Json(
+    name = "near_earth_objects"
+) val asteroids: ArrayList<Asteroid>)
 
 fun NetworkAsteroidContainer.asDomainModel(): List<Asteroid> {
-    return asteroids.map{
+    return asteroids.map {
         Asteroid(
             id = it.id,
             codename = it.codename,

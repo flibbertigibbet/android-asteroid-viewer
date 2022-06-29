@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dev.killebrew.asteroidradar.R
 import dev.killebrew.asteroidradar.database.getDatabase
 import dev.killebrew.asteroidradar.repository.AsteroidRepository
 import kotlinx.coroutines.launch
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 // https://github.com/udacity/andfun-kotlin-dev-bytes/blob/master/app/src/main/java/com/example/android/devbyteviewer/viewmodels/DevByteViewModel.kt
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val database = getDatabase(application)
-    private val asteroidRepository = AsteroidRepository(database)
+    private val apiKey = application.getString(R.string.nasa_api_key)
+    private val asteroidRepository = AsteroidRepository(database, apiKey)
 
     init {
         viewModelScope.launch {
@@ -29,7 +31,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 @Suppress("UNCHECKED_CAST")
                 return MainViewModel(app) as T
             }
-            throw IllegalArgumentException("Unable to construct viewmodel")
+            throw IllegalArgumentException("Unable to construct view model")
         }
     }
 }

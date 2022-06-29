@@ -3,6 +3,7 @@ package dev.killebrew.asteroidradar.work
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import dev.killebrew.asteroidradar.R
 import dev.killebrew.asteroidradar.database.getDatabase
 import dev.killebrew.asteroidradar.repository.AsteroidRepository
 import retrofit2.HttpException
@@ -18,7 +19,8 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
 
     override suspend fun doWork(): Result {
         val database = getDatabase(applicationContext)
-        val repository = AsteroidRepository(database)
+        val apiKey = applicationContext.getString(R.string.nasa_api_key)
+        val repository = AsteroidRepository(database, apiKey)
         return try {
             repository.refreshAsteroids()
             Result.success()
