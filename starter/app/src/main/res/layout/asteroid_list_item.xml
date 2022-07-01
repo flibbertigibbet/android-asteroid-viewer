@@ -8,58 +8,55 @@
             type="dev.killebrew.asteroidradar.models.Asteroid" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/asteroid_item_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
-        <TextView
-            android:id="@+id/item_title"
-            style="@style/TextAppearance.AppCompat.Title.Inverse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:text="@{asteroid.codename}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintEnd_toStartOf="@id/item_barrier"
-            tools:text="[asteroid title]" />
-
-        <TextView
-            android:id="@+id/item_date"
-            style="@style/TextAppearance.AppCompat.Medium.Inverse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:text="@{asteroid.closeApproachDate}"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintEnd_toStartOf="@id/item_barrier"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_title"
-            tools:text="[asteroid date]" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/item_barrier"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:barrierDirection="end"
-            app:constraint_referenced_ids="item_title, item_date" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:gravity="start"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/item_icon"
+            <TextView
+                android:id="@+id/item_title"
+                style="@style/TextAppearance.AppCompat.Title.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="@{asteroid.codename}"
+                tools:text="[asteroid title]" />
+
+            <TextView
+                android:id="@+id/item_date"
+                style="@style/TextAppearance.AppCompat.Medium.Inverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:text="@{asteroid.closeApproachDate}"
+                tools:text="[asteroid date]" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/margin"
-            android:src="@drawable/ic_status_potentially_hazardous"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight="@dimen/icon_size"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@id/item_barrier"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth="@dimen/icon_size"
-            tools:src="@drawable/ic_status_normal" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:layout_gravity="end"
+            android:gravity="end">
+
+            <ImageView
+                android:id="@+id/item_icon"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_margin="@dimen/margin"
+                android:layout_gravity="center_vertical|end"
+                android:gravity="center_vertical|end"
+                app:statusIcon="@{asteroid.potentiallyHazardous}"
+                tools:src="@drawable/ic_status_normal" />
+        </FrameLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

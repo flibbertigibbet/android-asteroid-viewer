@@ -37,12 +37,12 @@ class MainFragment : Fragment() {
                     }
                 )
 
+                binding.statusLoadingWheel.visibility = View.GONE
+                binding.asteroidRecycler.visibility = View.VISIBLE
+
                 binding.asteroidRecycler.adapter = adapter
                 adapter.submitList(it)
                 adapter.notifyDataSetChanged()
-
-                binding.statusLoadingWheel.visibility = View.GONE
-                binding.asteroidRecycler.visibility = View.VISIBLE
             }
         }
 
