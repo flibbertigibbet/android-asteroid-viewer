@@ -1,6 +1,5 @@
 package dev.killebrew.asteroidradar.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import dev.killebrew.asteroidradar.database.AsteroidDatabase
@@ -15,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
+
+const val DAYS_IN_WEEK = 7
 
 // based on:
 // https://github.com/udacity/andfun-kotlin-dev-bytes/blob/master/app/src/main/java/com/example/android/devbyteviewer/repository/VideosRepository.kt
@@ -36,25 +37,24 @@ class AsteroidRepository(private val database: AsteroidDatabase, private val api
             val calendar = Calendar.getInstance()
             calendar.time = Date()
             val currentDate = dateFormat.format(calendar.time)
-            calendar.add(Calendar.DAY_OF_YEAR, 7)
+            calendar.add(Calendar.DAY_OF_YEAR, DAYS_IN_WEEK)
             val nextWeek = dateFormat.format(calendar.time)
 
             val asteroidList = Network.asteroids.getAsteroidsAsync(
                 apiKey, currentDate, nextWeek
             ).await()
-            database.asteroidDao.insertAll(*asteroidList.asDatabaseModel())
+            database.asteroidDao.clearAsteroids()
+            database.asteroidDao.insertAsteroids(*asteroidList.asDatabaseModel())
         }
     }
 
     suspend fun refreshPictureOfDay() {
         withContext(Dispatchers.IO) {
             val pictureOfDay = Network.asteroids.getPictureOfDayAsync(apiKey).await()
+            // ignore picture of the day if it is actually a video
             if (pictureOfDay.mediaType == Constants.IMAGE_MEDIA_TYPE) {
                 database.asteroidDao.clearPicture()
                 database.asteroidDao.insertPicture(pictureOfDay.asDatabaseModel())
-                Log.d("AsteroidRepo", "image of the day updated to ${pictureOfDay.title}")
-            } else {
-                Log.d("AsteroidRepo", "image of the day is a video; ignoring it")
             }
         }
     }

@@ -1,8 +1,9 @@
-package dev.killebrew.asteroidradar
+package dev.killebrew.asteroidradar.utils
 
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import dev.killebrew.asteroidradar.R
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {

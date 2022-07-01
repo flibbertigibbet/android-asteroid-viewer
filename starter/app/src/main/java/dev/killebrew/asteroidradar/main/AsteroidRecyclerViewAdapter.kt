@@ -1,6 +1,5 @@
 package dev.killebrew.asteroidradar.main
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -18,7 +17,6 @@ class AsteroidRecyclerViewAdapter(private val onClickListener: OnClickListener):
         RecyclerView.ViewHolder(binding.root) {
 
             fun bind(asteroid: Asteroid) {
-                Log.d("RecyclerView", "Binding asteroid ${asteroid.codename} ${asteroid.id}")
                 binding.asteroid = asteroid
                 binding.executePendingBindings()
             }
@@ -46,7 +44,6 @@ class AsteroidRecyclerViewAdapter(private val onClickListener: OnClickListener):
     override fun onBindViewHolder(holder: AsteroidViewHolder, position: Int) {
         val asteroid = getItem(position)
         holder.itemView.setOnClickListener {
-            Log.d("RecyclerView", "hey, that tickles!")
             onClickListener.onClick(asteroid)
         }
         holder.bind(asteroid)
