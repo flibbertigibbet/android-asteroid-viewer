@@ -1,10 +1,10 @@
 package dev.killebrew.asteroidradar.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.squareup.picasso.Picasso
 import dev.killebrew.asteroidradar.R
 import dev.killebrew.asteroidradar.databinding.FragmentMainBinding
@@ -23,17 +23,10 @@ class MainFragment : Fragment() {
 
         viewModel.asteroids.observe(viewLifecycleOwner) {
             it?.apply {
-                Log.d("MainFragment", "got ${it.size} asteroids")
-                it.forEach { a ->
-                    Log.d(
-                        "MainFragment",
-                        "Got asteroid: ${a.closeApproachDate} ${a.codename} ${a.id}"
-                    )
-                }
-
                 val adapter = AsteroidRecyclerViewAdapter(
-                    AsteroidRecyclerViewAdapter.OnClickListener {
-                        Log.d("MainFragment", "on click call listener fired")
+                    AsteroidRecyclerViewAdapter.OnClickListener { asteroid ->
+                        val action = MainFragmentDirections.actionShowDetail(asteroid)
+                        findNavController().navigate(action)
                     }
                 )
 
@@ -48,7 +41,6 @@ class MainFragment : Fragment() {
 
         viewModel.pictureOfDay.observe(viewLifecycleOwner) {
             it?.apply {
-                Log.d("MainFragment", "got image of day ${it.title}")
                 Picasso.Builder(requireContext())
                     .build()
                     .load(it.url)
