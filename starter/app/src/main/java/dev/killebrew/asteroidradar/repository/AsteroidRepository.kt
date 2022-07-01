@@ -15,15 +15,14 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val DAYS_IN_WEEK = 7
-
 // based on:
 // https://github.com/udacity/andfun-kotlin-dev-bytes/blob/master/app/src/main/java/com/example/android/devbyteviewer/repository/VideosRepository.kt
 class AsteroidRepository(private val database: AsteroidDatabase, private val apiKey: String) {
-    private val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+    private val apiDateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+    private val isoDateFormat = SimpleDateFormat(Constants.ISO_DATE_FORMAT, Locale.getDefault())
 
     val asteroids: LiveData<List<Asteroid>> = Transformations.map(
-        database.asteroidDao.getAsteroids()
+        database.asteroidDao.getAsteroids(isoDateFormat.format(Date()))
     ) { it.asDomainModel() }
 
     val pictureOfDay: LiveData<PictureOfDay> = Transformations.map(
@@ -36,9 +35,9 @@ class AsteroidRepository(private val database: AsteroidDatabase, private val api
             // request all asteroids for the next week
             val calendar = Calendar.getInstance()
             calendar.time = Date()
-            val currentDate = dateFormat.format(calendar.time)
-            calendar.add(Calendar.DAY_OF_YEAR, DAYS_IN_WEEK)
-            val nextWeek = dateFormat.format(calendar.time)
+            val currentDate = apiDateFormat.format(calendar.time)
+            calendar.add(Calendar.DAY_OF_YEAR, Constants.DAYS_IN_WEEK)
+            val nextWeek = apiDateFormat.format(calendar.time)
 
             val asteroidList = Network.asteroids.getAsteroidsAsync(
                 apiKey, currentDate, nextWeek

@@ -18,7 +18,7 @@ annotation class AsteroidList
 class AsteroidListAdapter {
 
     private val apiDateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
-    private val isoDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private val isoDateFormat = SimpleDateFormat(Constants.ISO_DATE_FORMAT, Locale.getDefault())
 
     @FromJson
     @AsteroidList
