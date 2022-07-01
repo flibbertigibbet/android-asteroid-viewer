@@ -15,7 +15,7 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+        ViewModelProvider(this)[MainViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,6 +30,19 @@ class MainFragment : Fragment() {
                         "Got asteroid: ${a.closeApproachDate} ${a.codename} ${a.id}"
                     )
                 }
+
+                val adapter = AsteroidRecyclerViewAdapter(
+                    AsteroidRecyclerViewAdapter.OnClickListener {
+                        Log.d("MainFragment", "on click call listener fired")
+                    }
+                )
+
+                binding.asteroidRecycler.adapter = adapter
+                adapter.submitList(it)
+                adapter.notifyDataSetChanged()
+
+                binding.statusLoadingWheel.visibility = View.GONE
+                binding.asteroidRecycler.visibility = View.VISIBLE
             }
         }
 
@@ -45,11 +58,12 @@ class MainFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentMainBinding.inflate(inflater)
         binding.lifecycleOwner = this
-
         binding.viewModel = viewModel
 
         setHasOptionsMenu(true)

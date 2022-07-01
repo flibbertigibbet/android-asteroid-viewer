@@ -1,6 +1,7 @@
 package dev.killebrew.asteroidradar.work
 
 import android.content.Context
+import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import dev.killebrew.asteroidradar.R
@@ -22,6 +23,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
         val apiKey = applicationContext.getString(R.string.nasa_api_key)
         val repository = AsteroidRepository(database, apiKey)
         return try {
+            Log.d("AsteroidWorker", "Daily worker fired")
             repository.refreshPictureOfDay()
             repository.refreshAsteroids()
             Result.success()

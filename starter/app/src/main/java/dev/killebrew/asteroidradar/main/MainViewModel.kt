@@ -1,6 +1,7 @@
 package dev.killebrew.asteroidradar.main
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -17,12 +18,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val apiKey = application.getString(R.string.nasa_api_key)
     private val asteroidRepository = AsteroidRepository(database, apiKey)
 
+    /* FIXME: Is this needed?
     init {
         viewModelScope.launch {
-            asteroidRepository.refreshAsteroids()
-            asteroidRepository.refreshPictureOfDay()
+            // use daily cache if available, or call network if not
+            if (asteroidRepository.asteroids.value.isNullOrEmpty()) {
+                Log.d("ViewModel", "No asteroids in DB; refreshing ##################################")
+                asteroidRepository.refreshAsteroids()
+            }
+            if (asteroidRepository.pictureOfDay.value == null) {
+                asteroidRepository.refreshPictureOfDay()
+            }
         }
     }
+     */
 
     val asteroids = asteroidRepository.asteroids
     val pictureOfDay = asteroidRepository.pictureOfDay

@@ -2,6 +2,8 @@ package dev.killebrew.asteroidradar
 
 import android.app.Application
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.work.*
 import dev.killebrew.asteroidradar.work.RefreshDataWorker
 import kotlinx.coroutines.CoroutineScope
@@ -42,6 +44,7 @@ class AsteroidApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
         delayedInit()
     }
 }
