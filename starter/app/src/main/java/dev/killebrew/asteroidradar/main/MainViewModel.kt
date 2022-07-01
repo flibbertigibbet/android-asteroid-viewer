@@ -15,7 +15,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val apiKey = application.getString(R.string.nasa_api_key)
     private val asteroidRepository = AsteroidRepository(database, apiKey)
 
-    val asteroids = asteroidRepository.asteroids
+    val asteroidsForWeek = asteroidRepository.asteroidsForWeek
+    val asteroidsForDay = asteroidRepository.asteroidsForDay
+    val savedAsteroids = asteroidRepository.asteroids
     val pictureOfDay = asteroidRepository.pictureOfDay
 
     class Factory(val app: Application) : ViewModelProvider.Factory {

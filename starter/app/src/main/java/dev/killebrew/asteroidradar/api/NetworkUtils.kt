@@ -44,7 +44,7 @@ class AsteroidListAdapter {
         return JSONArray()
     }
 
-    fun parseAsteroidsJsonResult(jsonArray: JSONArray): ArrayList<Asteroid> {
+    private fun parseAsteroidsJsonResult(jsonArray: JSONArray): ArrayList<Asteroid> {
         val asteroidList = ArrayList<Asteroid>()
 
         // loop through date groupings
@@ -90,7 +90,8 @@ class AsteroidListAdapter {
         return asteroidList
     }
 
-    fun apiDateToIso(apiDate: String): String {
+    // Convert date string from API to ISO8601 format
+    private fun apiDateToIso(apiDate: String): String {
         // default to today if date fails to parse
         val parsedDate = apiDateFormat.parse(apiDate) ?: Date()
         return isoDateFormat.format(parsedDate)

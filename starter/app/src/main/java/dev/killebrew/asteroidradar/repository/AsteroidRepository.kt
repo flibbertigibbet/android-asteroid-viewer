@@ -20,9 +20,18 @@ import java.util.*
 class AsteroidRepository(private val database: AsteroidDatabase, private val apiKey: String) {
     private val apiDateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
     private val isoDateFormat = SimpleDateFormat(Constants.ISO_DATE_FORMAT, Locale.getDefault())
+    private val today = isoDateFormat.format(Date())
 
     val asteroids: LiveData<List<Asteroid>> = Transformations.map(
-        database.asteroidDao.getAsteroids(isoDateFormat.format(Date()))
+        database.asteroidDao.getAsteroids()
+    ) { it.asDomainModel() }
+
+    val asteroidsForWeek: LiveData<List<Asteroid>> = Transformations.map(
+        database.asteroidDao.getAsteroidsForWeek(today)
+    ) { it.asDomainModel() }
+
+    val asteroidsForDay: LiveData<List<Asteroid>> = Transformations.map(
+        database.asteroidDao.getAsteroidsForDay(today)
     ) { it.asDomainModel() }
 
     val pictureOfDay: LiveData<PictureOfDay> = Transformations.map(
