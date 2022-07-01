@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dev.killebrew.asteroidradar.api.AsteroidListAdapter
+import dev.killebrew.asteroidradar.models.PictureOfDay
 import dev.killebrew.asteroidradar.utils.Constants.BASE_URL
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
@@ -23,6 +24,11 @@ interface AsteroidService {
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String
     ): Deferred<NetworkAsteroidContainer>
+
+    @GET("planetary/apod")
+    fun getPictureOfDayAsync(
+        @Query("api_key") apiKey: String
+    ): Deferred<PictureOfDay>
 }
 
 private val moshi = Moshi.Builder()

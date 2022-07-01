@@ -20,10 +20,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     init {
         viewModelScope.launch {
             asteroidRepository.refreshAsteroids()
+            asteroidRepository.refreshPictureOfDay()
         }
     }
 
     val asteroids = asteroidRepository.asteroids
+    val pictureOfDay = asteroidRepository.pictureOfDay
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

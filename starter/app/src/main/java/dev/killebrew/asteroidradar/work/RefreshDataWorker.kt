@@ -22,6 +22,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
         val apiKey = applicationContext.getString(R.string.nasa_api_key)
         val repository = AsteroidRepository(database, apiKey)
         return try {
+            repository.refreshPictureOfDay()
             repository.refreshAsteroids()
             Result.success()
         } catch (e: HttpException) {

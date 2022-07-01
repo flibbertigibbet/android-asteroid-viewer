@@ -1,8 +1,10 @@
 package dev.killebrew.asteroidradar.database
 
+import androidx.lifecycle.Transformations.map
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import dev.killebrew.asteroidradar.models.Asteroid
+import dev.killebrew.asteroidradar.models.PictureOfDay
 
 @Entity(tableName = "asteroids")
 data class DatabaseAsteroid constructor(
@@ -30,4 +32,20 @@ fun List<DatabaseAsteroid>.asDomainModel(): List<Asteroid> {
             isPotentiallyHazardous = it.isPotentiallyHazardous
         )
     }
+}
+
+@Entity(tableName = "picture_of_day")
+data class DatabasePictureOfDay constructor(
+    @PrimaryKey
+    val url: String,
+    val title: String,
+    val mediaType: String
+)
+
+fun DatabasePictureOfDay.asDomainModel(): PictureOfDay {
+    return PictureOfDay(
+        url = url,
+        title = title,
+        mediaType = mediaType
+    )
 }
