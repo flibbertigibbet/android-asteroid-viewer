@@ -2,6 +2,10 @@
 
 Asteroid Radar
 
+## API key setup
+
+Copy the file `examples/api_keys.xml` to `starter/app/src/main/res/values/api_keys.xml` and put your API key acquired above in the value.
+
 ## Getting Started
 
 Asteroid Radar is an app to view the asteroids detected by NASA that pass near Earth, you can view all the detected asteroids in a period of time, their data (Size, velocity, distance to Earth) and if they are potentially hazardous.
@@ -127,11 +131,6 @@ To build this project you are going to use the NASA NeoWS (Near Earth Object Web
 https://api.nasa.gov/
 
 You will need an API Key which is provided for you in that same link, just fill the fields in the form and click Signup.
-
-
-### API key setup
-
-Copy the file `examples/api_keys.xml` to `starter/app/src/main/res/values/api_keys.xml` and put your API key acquired above in the value.
 
 
 ## License
